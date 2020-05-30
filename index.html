@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>4.2</title>
+</head>
+<body>
+
+	<h1>
+		Toggle a light
+	</h1>
+
+	<form action="" id="js-form">
+		<label>
+			<span>Red</span>
+			<input type="checkbox" class="js-input" value="red">
+		</label>
+		<label>
+			<span>Yellow</span>
+			<input type="checkbox" class="js-input" value="yellow">
+		</label>
+		<label>
+			<span>Green</span>
+			<input type="checkbox" class="js-input" value="green">
+		</label>
+	</form>
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/particle-api-js@8/dist/particle.min.js">
+	</script>
+
+	<script>
+	  (async function () {
+		  const particle = new Particle();
+		  const { body: { access_token: accessToken } } = await particle.login({
+			  username: '',
+			  password: ''
+		  });
+
+		  const input = document.querySelectorAll('.js-input');
+		  input.forEach(e => e.addEventListener("change", async function (event) {
+			  const element = event.target;
+
+			  const res = await particle.callFunction({
+				  deviceId: '',
+				  name: 'toggleLight',
+				  argument: element.value,
+				  auth: accessToken
+			  });
+		  }))
+	  })()
+	</script>
+</body>
+</html>
